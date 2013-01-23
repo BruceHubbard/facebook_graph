@@ -127,7 +127,7 @@ function drawGraph(friends) {
       d.tooltip = d3.select('body')
           .append('div')
           .attr('class', 'tooltip')
-          .text(d.name)
+          .text(d.name + " (" + d.mutual_friends.length + ")")
           .style('top', d.y-10 + "px")
           .style('display', 'block')
           .style('left', d.x + "px");              
