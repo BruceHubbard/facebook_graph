@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+
+			body { 
+				margin: 0; 
+				background-image: url('img/graph.png');
+				-webkit-background-size: cover;
+        		-moz-background-size: cover;
+        		-o-background-size: cover;
+        		background-size: cover;
+        		color: #333;
+        		font: 'Helvetica Neue', Arial, Helvetica, FreeSans, sans-serif;
+			}
+
+			* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+			.opening {
+				width: 700px;
+				height: 300px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -350px; 
+				margin-top: -150px;
+				border: 1px #000000 solid;
+				border-radius: 15px;
+				padding: 20px;
+				background-color: rgba(255, 255, 255, 0.85);
+				text-align: center;
+			}
+
+			.opening h2 {
+				margin: 8px 0 18px 0;
+			}
+
+			a { text-decoration: none; }
+
+			p {
+				font-size: 14px;
+			}
+
+			p.note {
+				font-size: 12px;
+			}
+
+			.opening .bruce, .opening .facebook {
+				width: 42%;
+			}
+
+			.opening .or {
+				width: 14%;
+			}
+
+			.opening .or hr {
+				height: 80px;
+				width: 1px;
+				background-color: black;
+			}
+
+			.opening .block {
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			.facebook .login {
+				padding: 2px 5px 0 26px;
+				background-image: url('img/facebook_22x22.gif');
+				background-repeat: no-repeat;
+				background-color: #5F78AB;
+				color: white;
+				height: 24px;
+				border: 1px #000000 solid;
+				display: inline-block;
+				cursor: pointer;
+			}
+
+			.bruce a {
+				display: inline-block;
+				height: 24px;
+				background-color: #E11B36;
+				padding: 2px 7px 0 7px;
+				color: white;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="opening">
+			<header><h2>Facebook Mutual Friends D3.js Demo</h2></header>
+			<div class="choose">
+				<div class="block bruce">
+					<h3>View My Graph</h3>
+					<p>If you want to view the demo without using Facebook then click the button below to view my graph.</p>
+					<a href="brucesGraph.html">View Bruce's Graph</a>
+				</div>
+				<div class="block or"><hr />or <hr /></div>
+				<div class="block facebook">
+					<h3>View Your Graph</h3>
+					<p>If you want to view your graph click the button below. This will take you to Facebook to authorize the app to access your friends list.</p>
+					<p class="note">NOTE: I don't store or retain any of your data but do log your name out of curiousity of who is using the app.</p>
+					<a class="login" href="myGraph.html">Connect With Facebook</a>
+				</div>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	</body>
+</html>

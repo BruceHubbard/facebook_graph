@@ -1,0 +1,44 @@
+body { 
+	margin: 0; 
+	color: #333;
+	font: 'Helvetica Neue', Arial, Helvetica, FreeSans, sans-serif;
+}
+
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+svg { 
+	border: 1px black solid; 
+}
+
+circle {
+	fill: grey;
+}
+
+.male { fill: #0033FF; background-color: #0033FF; color: #FFFFFF; }
+
+.female { fill: #FF66CC; background-color: #FF66CC; color: #FFFFFF; }
+
+.filters {
+	width: 20%;
+	float: right;
+	height: 100%;
+	overflow: auto;
+}
+
+.filters .buttonset {
+	margin-bottom: 10px;
+}
+
+.filter .show { display: none; }
+.filter.hidden .hide { display: none; }
+.filter.hidden .show { display: inline; }
+
+.tooltip {
+	position: absolute;
+	margin-top: -20px;
+	margin-left: -35px;
+	font-size: 12px;
+	z-index: 300;
+	border: 1px black solid;
+	background: greenYellow;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/graph.css"></link>
+	</head>
+	<body>
+		<div class="filters">
+			<h3>Filters: </h3>
+			<div class="buttonset gender">
+				<button class="all">Show All</button>
+				<button class="male">Guys Only</button>
+				<button class="female">Girls Only</button>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="js/d3.v3.min.js"></script>
+		<script src="js/mutualFriends.js"></script>
+		<script>
+			$(document).ready(function() {
+				$(window).trigger('bruces-graph');
+			});
+		</script>
+	</body>
+</html>
