@@ -169,6 +169,14 @@ function drawGraph(friends) {
     update();
   }
 
+  function hideAll() {
+    friends.forEach(function(f) {
+      f.hidden = true;
+    });
+
+    update();    
+  }
+
   //OBJECT MASSAGING
 
   //sort friends by name
@@ -206,6 +214,7 @@ function drawGraph(friends) {
     .on('mouseout', dehighlightFriendAndMutuals);
 
   d3.select('.filters .gender .all').on('click', function() { hideGender() });
+  d3.select('.filters .gender .hideAll').on('click', function() { hideAll() });
   d3.select('.filters .gender .male').on('click', function() { hideGender('female') });
   d3.select('.filters .gender .female').on('click', function() { hideGender('male') });
 
