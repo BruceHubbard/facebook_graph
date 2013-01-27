@@ -79,7 +79,8 @@ function drawGraph(friends) {
       svg = d3.select('body')
                 .append('svg')
                 .attr('height', size.height)
-                .attr('width', size.width);
+                .attr('width', size.width),
+      container = svg.append('g');
 
   d3.select('.filters').style('height', size.height + "px");
 
@@ -267,7 +268,10 @@ function drawGraph(friends) {
           .start();
 
     //GENERATE LINE OBJECTS FROM LINK OBJECTS
-    paths = svg.selectAll('line')
+    paths = container
+              .append('g')
+              .attr('class', 'links')
+              .selectAll('line')
                   .data(links, function(d) { return d.source.id + d.target.id; } );
 
     paths
@@ -281,7 +285,10 @@ function drawGraph(friends) {
       .remove();
 
     //GENERATE CIRCLE OBJECTS FROM FRIEND OBJECTS
-    circles = svg.selectAll('circle')
+    circles = container
+                .append('g')
+                .attr('class', 'nodes')
+                .selectAll('circle')
       .data(visible, function(d) { return d.id; });
 
     circles
