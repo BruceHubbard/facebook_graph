@@ -13,19 +13,39 @@ Add groups:
 
 //fired when FB auth succeeds
 $(window).on('auth-success', function() {
-    $(document.body).append("<p class='msg'>Loading Friends....This might take a few minutes.</p>");
 
-    FB.api('/me?fields=id,name,friends.fields(gender,mutualfriends,name)', function (response) {
+  var friends = [],
+      pageSize = 200; 
 
-      //this sends me an email with your name/FB id. I only do this because I'm curious who's using the app
-      $.ajax({url: 'notifyBruce.php', data: {id: response.id, name: response.name}});
+  function loadFriends(pageNum) {
+    var offset = pageSize * pageNum;
+    FB.api('/me?fields=id,name,friends.limit(' + pageSize + ').offset(' + offset + ').fields(gender,mutualfriends,name)', function (response) {
 
-      var friends = [].slice.call(response.friends.data);
+      if(friends.length == 0) { 
+        //this sends me an email with your name/FB id. I only do this because I'm curious who's using the app
+        $.ajax({url: 'notifyBruce.php', data: {id: response.id, name: response.name}});
+      }
 
-      fixObjectGraph(friends);
-      $('.msg').remove();
-      drawGraph(friends);
+      var newFriends = [].slice.call(response.friends.data);
+
+      friends = friends.concat(newFriends);
+
+      if(newFriends.length === pageSize) {
+          loadFriends(pageNum + 1);
+      } else {
+        finishedLoading();
+      }
     });
+  }
+
+  function finishedLoading() {
+    fixObjectGraph(friends);
+    $('.msg').remove();
+    drawGraph(friends);
+  }
+  
+  $(document.body).append("<p class='msg'>Loading Friends....This might take a few minutes.</p>");
+  loadFriends(0);
 });
 
 $(window).on('bruces-graph', function() {

@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
   //notacog
-  //var appId = "249588255171672";
+  var appId = "249588255171672";
   //local
-  var appId = "118794951629107";
+  //var appId = "118794951629107";
   // If logging in as a Facebook canvas application use this URL.
   //var redirectUrl = "http://apps.facebook.com/YOUR_APP_NAMESPACE";
   // If logging in as a website do this. Be sure to add the host to your application's App Domain list. 
