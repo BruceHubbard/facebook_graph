@@ -42,3 +42,12 @@ circle {
 	border: 1px black solid;
 	background: greenYellow;
 }
+
+.loading {
+	width: 400px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -10px;
+}

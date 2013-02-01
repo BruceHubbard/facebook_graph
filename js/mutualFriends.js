@@ -240,24 +240,47 @@ function drawGraph(friends) {
   d3.select('.filters .gender .female').on('click', function() { hideGender('male') });
 
   //GENERATE A D3 FORCE LAYOUT
-  var force = d3.layout.force()
+  var largeGraph = 300,     //if a graph is large it'll take forever to initially show
+      isLargeGraph = false, //whether the graph is large IMO
+      showAfterNTicks = 100,  //how many ticks to wait on if the graph is large
+      ticks = 0,              //how many ticks have occurred
+      force = d3.layout.force()
       .size([size.width, size.height])
       .linkDistance(function(d) { return Math.max(d.source.r, d.target.r) * 16;})
       .charge(function(d) { return -d.r * 10; });
 
   //called everytime D3 updates the graph
   force.on("tick", function(e) {
-    //update path object's position
-    paths
-      .attr('x1', function(d) { return d.source.x; })
-      .attr('y1', function(d) { return d.source.y; })
-      .attr('x2', function(d) { return d.target.x; })
-      .attr('y2', function(d) { return d.target.y; });
+    if(!isLargeGraph || ticks++ >= showAfterNTicks) {
 
-    //update circle object's position
-    circles
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
+      d3.selectAll('div.loading').style('visibility', 'hidden');
+
+      //update path object's position
+      paths
+        .attr('x1', function(d) { return d.source.x; })
+        .attr('y1', function(d) { return d.source.y; })
+        .attr('x2', function(d) { return d.target.x; })
+        .attr('y2', function(d) { return d.target.y; });
+
+      //update circle object's position
+      circles
+        .style('visibility', 'visible')
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+    } else {
+      var loading = d3.select('body').selectAll('div.loading')
+            .data([{ticks: ticks, total: showAfterNTicks}]);
+
+      loading
+            .enter()
+            .append("div")
+            .attr('class', 'loading');
+
+      loading
+            .text(function(d) { return "Calculating initial state #" + d.ticks + " of " + d.total});
+
+      circles.style('visibility', 'hidden');
+    }
   });
 
   update();
@@ -267,6 +290,8 @@ function drawGraph(friends) {
     //represents the lines between circles
     var links = [];
     var visible = friends.filter(function(f) { return !f.hidden; });
+
+    isLargeGraph = visible.length >= largeGraph;
 
     //generate link objects based on mutual friends
     visible.forEach(function(left) {
