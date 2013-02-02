@@ -100,7 +100,9 @@ function drawGraph(friends) {
                 .append('svg')
                 .attr('height', size.height)
                 .attr('width', size.width),
-      container = svg.append('g');
+      container = svg.append('g'),
+      lineGroup = container.append('g'),
+      circleGroup = container.append('g');
 
   d3.select('.filters').style('height', size.height + "px");
 
@@ -264,7 +266,7 @@ function drawGraph(friends) {
 
       //update circle object's position
       circles
-        .style('visibility', 'visible')
+        //.style('visibility', 'visible')
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
     } else {
@@ -279,7 +281,7 @@ function drawGraph(friends) {
       loading
             .text(function(d) { return "Calculating initial state #" + d.ticks + " of " + d.total});
 
-      circles.style('visibility', 'hidden');
+      //circles.style('visibility', 'hidden');
     }
   });
 
@@ -313,8 +315,7 @@ function drawGraph(friends) {
           .start();
 
     //GENERATE LINE OBJECTS FROM LINK OBJECTS
-    paths = container
-              .append('g')
+    paths = lineGroup
               .attr('class', 'links')
               .selectAll('line')
                   .data(links, function(d) { return d.source.id + d.target.id; } );
@@ -330,11 +331,10 @@ function drawGraph(friends) {
       .remove();
 
     //GENERATE CIRCLE OBJECTS FROM FRIEND OBJECTS
-    circles = container
-                .append('g')
+    circles = circleGroup
                 .attr('class', 'nodes')
                 .selectAll('circle')
-      .data(visible, function(d) { return d.id; });
+                .data(visible, function(d) { return d.id; });
 
     circles
       .enter()
