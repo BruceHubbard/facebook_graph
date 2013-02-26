@@ -99,8 +99,16 @@ function drawGraph(friends) {
       svg = d3.select('body')
                 .append('svg')
                 .attr('height', size.height)
-                .attr('width', size.width),
-      container = svg.append('g'),
+                .attr('width', size.width)
+                .attr("pointer-events", "all"),
+      container = svg 
+                  .append('svg:g')
+                  .call(d3.behavior.zoom().on("zoom", redraw))
+                  .append('g'),
+      dragRect = container.append('svg:rect')
+                    .attr('width', size.width)
+                    .attr('height', size.height)
+                    .attr('fill', 'white'),
       lineGroup = container.append('g'),
       circleGroup = container.append('g');
 
@@ -286,6 +294,12 @@ function drawGraph(friends) {
   });
 
   update();
+
+  function redraw() {
+    container.attr("transform",
+        "translate(" + d3.event.translate + ")"
+        + " scale(" + d3.event.scale + ")");    
+  }
 
   //binds the friends data to the graph and starts the force
   function update() {
