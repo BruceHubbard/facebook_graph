@@ -110,7 +110,9 @@ function drawGraph(friends) {
                     .attr('height', size.height)
                     .attr('fill', 'white'),
       lineGroup = container.append('g'),
-      circleGroup = container.append('g');
+      circleGroup = container.append('g'),
+      currentPos = [0,0],
+      currentScale = 1;
 
   d3.select('.filters').style('height', size.height + "px");
 
@@ -159,9 +161,9 @@ function drawGraph(friends) {
           .append('div')
           .attr('class', 'tooltip')
           .text(d.name + " (" + d.mutual_friends.length + ")")
-          .style('top', d.y-10 + "px")
+          .style('top', (d.y * currentScale + currentPos[1])-10 + "px")
           .style('display', 'block')
-          .style('left', d.x + "px");              
+          .style('left', (d.x * currentScale +currentPos[0]) + "px");              
     }
   }
 
@@ -296,9 +298,12 @@ function drawGraph(friends) {
   update();
 
   function redraw() {
+    currentPos = d3.event.translate;
+    currentScale = d3.event.scale;
+
     container.attr("transform",
-        "translate(" + d3.event.translate + ")"
-        + " scale(" + d3.event.scale + ")");    
+        "translate(" + currentPos + ")"
+        + " scale(" + currentScale + ")");    
   }
 
   //binds the friends data to the graph and starts the force
